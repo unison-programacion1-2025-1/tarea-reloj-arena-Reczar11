@@ -1,5 +1,3 @@
-
-
 import sys
 
 from solucion import reloj_arena
@@ -9,22 +7,22 @@ def main():
     data: lista de líneas leídas desde la entrada estándar o ingresadas por el usuario
           donde cada elemento de la lista es un string    
     """
-    # IF que permite leer desde la entrada estándar o pedir datos al usuario
     if sys.stdin.isatty():
         data = []
         data.append(input("Ingresa la altura: ").strip())
         data.append(input("Ingresa el caracter: "))
     else:
-        data = sys.stdin.read().strip().splitlines()
+        entrada = sys.stdin.read().strip()
+        data = entrada.splitlines()
     
-    # Validar que se recibieron dos líneas
+   
     if len(data) < 2:
         print("Error: Se esperan 2 lineas de entrada (altura, caracter)")
         return
     
     m_str = data[0].strip()  
-    s = data[1]             
-    # Intenta convertir la altura a entero
+    s = data[1] if len(data[1]) > 0 else ""  
+    # Intentar convertir la altura a entero
     try:
         # Convertir m_str a entero y asignarlo a m
         m = int(m_str)
@@ -39,20 +37,17 @@ def main():
         return
     
     # Validar que el carácter no esté vacío
-    if len(s) == 0 or s.strip() == '':
+    if len(s) == 0:
         print("Error: El caracter no puede ser vacio")
         return
     
-    # Llamar a la función reloj_arena con los parámetros m y s
+    # Llamar a la función reloj_arena con los parámetros m y primer carácter de s
     reloj_arena(m, s[0])
 
 if __name__ == "__main__":
     main()
 
 
-
-# ARCHIVO: solucion.py
-# ============================================
 def reloj_arena(m, s):
     """
     Construye y dibuja el reloj de arena.
@@ -63,14 +58,16 @@ def reloj_arena(m, s):
     
     La función asume que m es un entero positivo y s es un carácter válido.
     """
-    # Dibujar la parte superior del reloj (triángulo decreciente)
+  
+ 
     for i in range(m):
-        espacios = ' ' * i
-        caracteres = s * (2 * m - 1 - 2 * i)
-        print(espacios + caracteres)
+        num_espacios = i
+        num_caracteres = 2 * m - 1 - 2 * i
+        print(' ' * num_espacios + s * num_caracteres)
     
-    # Dibujar la parte inferior del reloj (triángulo creciente)
+ 
     for i in range(m - 1):
-        espacios = ' ' * (m - 2 - i)
-        caracteres = s * (3 + 2 * i)
-        print(espacios + caracteres)
+        num_espacios = m - 2 - i
+        num_caracteres = 3 + 2 * i
+        print(' ' * num_espacios + s * num_caracteres)
+
