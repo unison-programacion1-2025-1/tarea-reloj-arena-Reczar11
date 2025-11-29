@@ -1,5 +1,26 @@
-# main.py
+def reloj_arena(m: int, s: str) -> str:
+    # TODO: validar altura mayor que 0 e imprimir "Error: La altura debe ser un entero positivo" y salir
+    if m <= 0:
+        print("Error: La altura debe ser un entero positivo")
+        return
+    for i in range(m):
+        num_espacios = i
+        num_caracteres = 2 * m - 1 - 2 * i
+        print(' ' * num_espacios + s * num_caracteres)
+    
+    # Dibujar la parte inferior del reloj (triángulo creciente) - m-1 líneas
+    for i in range(m - 1):
+        num_espacios = m - 2 - i
+        num_caracteres = 3 + 2 * i
+        print(' ' * num_espacios + s * num_caracteres)
+
+
+# ============================================
+# ARCHIVO: main.py
+# ============================================
+# Completa las validaciones y llama a la función
 import sys
+# Importar la función reloj_arena
 from solucion import reloj_arena
 
 def main():
@@ -13,8 +34,7 @@ def main():
         data.append(input("Ingresa la altura: ").strip())
         data.append(input("Ingresa el caracter: "))
     else:
-        entrada = sys.stdin.read().strip()
-        data = entrada.splitlines()
+        data = sys.stdin.read().strip().splitlines()
     
     # Validar que se recibieron dos líneas
     if len(data) < 2:
@@ -22,12 +42,7 @@ def main():
         return
     
     m_str = data[0].strip()  # Primera línea: altura máxima (como texto)
-    
-    # Segunda línea: carácter (sin hacer strip para preservar espacios)
-    if len(data) > 1:
-        s = data[1]
-    else:
-        s = ""
+    s = data[1]              # Segunda línea: carácter (o cadena) para la figura
     
     # Intentar convertir la altura a entero
     try:
@@ -36,11 +51,6 @@ def main():
     except ValueError:
         # Imprimir error y salir
         print("Error: La altura debe ser un numero entero")
-        return
-    
-    # Validar que la altura sea positiva
-    if m <= 0:
-        print("Error: La altura debe ser un entero positivo")
         return
     
     # Validar que el carácter no esté vacío
